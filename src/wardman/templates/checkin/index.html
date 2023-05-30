@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="active">床位管理</li>
+</ol>
+<div class="col-md-12">
+    <a href='add/' class="btn btn-default" style="margin-bottom:5px;background: #f2dede;">添加</a>
+    <div class="shadow hide" id="shadow"></div>
+    <!--信息展示-->
+    <table class="table table-bordered text-center table-hover" style="background: white;margin-bottom: 0">
+        <tr>
+            <th class="text-center">住院号</th>
+            <th class="text-center">病床号</th>
+            <th class="text-center">病房号</th>
+            <th class="text-center">科室名称</th>
+            <th class="text-center">入院日期</th>
+            <th class="text-center">病历号</th>
+            <th class="text-center">姓名</th>
+            <th class="text-center">收费标准</th>
+            <th class="text-center">是否活动</th>
+            <th class="text-center">操作</th>
+        </tr>
+        {% for row in list %}
+        <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ row.bid }}</td>
+            <td>{{ row.wid }}</td>
+            <td>{{ row.dname }}</td>
+            <td>{{ row.date }}</td>
+            <td>{{ row.tid }}</td>
+            <td>{{ row.pname }}</td>
+            <td>{{ row.fee }}</td>
+            <td>{{ row.online }}</td>
+            <td>
+                <!--<a href='edit?id={{ row.id }}' class="btn btn-default" style="margin-bottom:5px;background: #f2dede;">编辑</a>-->
+                <a href='javascript:void(0)' class="btn btn-default" style="margin-bottom:5px;background: #f2dede;" onclick="del(this)">删除</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <!--信息展示-->
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    // 删除
+    function del(ths) {
+        var row = $(ths).parent().prevAll();
+        var id = $(row[8]).text();
+        $.ajax({
+            url: 'delete/',
+            type: 'POST',
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': getCookie('csrftoken')
+            },
+            success: function (data) {
+                console.log(data);
+                if (data == 'ok') {
+                    window.alert('删除成功');
+                    location.reload();
+                } else {
+                    window.alert('删除失败');
+                    location.reload();
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

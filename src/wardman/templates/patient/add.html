@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="active">患者管理</li>
+</ol>
+<div class="col-md-12">
+    <div class="modal_layer" id="modal_layer">
+        <div class="panel panel-danger">
+            <div class="panel-heading" style="font-weight: bold">添加患者信息
+                <a href='javascript:history.back(-1)' type="button" class="close"><span
+                        aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="panel-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="">身份证号</label>
+                        <input type="text" name="ssn" class="form-control">
+                        <label for="">姓名</label>
+                        <input type="text" name="name" class="form-control">
+                        <label for="">性别</label> </br>
+                        <input type="radio" name="gender" value="1">男 </br>
+                        <input type="radio" name="gender" value="0">女 </br>
+                        <label for="">电话</label>
+                        <input type="text" name="tel" class="form-control">
+                        <label for="">血型</label>
+                        <input type="text" name="blood" class="form-control">
+                        <label for="">密码</label>
+                        <input type="password" name="pass" class="form-control">
+                        <label for="">是否在院</label><br>
+                        <input type="radio" name="online" value="1" checked>在 </br>
+                        <input type="radio" name="online" value="0">不在 </br>
+                        <span id="error" style="color: red">{{ error }}</span>
+                    </div>
+                    <input type="submit" class="btn" value="添加" style="background: #f2dede;">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}{% endblock %}

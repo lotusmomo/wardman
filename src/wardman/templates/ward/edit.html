@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block css %}
+{% endblock %}
+{% block content %}
+
+<ol class="breadcrumb">
+    <li class="active">病房管理</li>
+</ol>
+<div class="col-md-12">
+    <div class="modal_layer" id="modal_layer">
+        <!--编辑信息模态框-->
+        <div class="modal_layer" id="modal_edit">
+            <div class="panel panel-danger">
+                <div class="panel-heading" style="font-weight: bold">编辑病房信息
+                    <a href='javascript:history.back(-1)' type="button" class="close"><span
+                            aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="">病房ID</label>
+                            <input type="text" name="id" value="{{ id }}" class="form-control" autofocus>
+                            <label for="">所属科室</label>
+                            <select name="did" class="form-control" autofocus>
+                                {% for dep in deps %}
+                                <option value="{{ dep.id }}">{{ dep.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="">位置</label>
+                            <input type="text" name="location" value="{{ location }}" class="form-control" autofocus>
+                            <span id="error" style="color: red">{{ error }}</span>
+                        </div>
+                        <input type="submit" class="btn" value="修改" id="edit_department" style="background: #f2dede;">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--编辑信息模态框-->
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}

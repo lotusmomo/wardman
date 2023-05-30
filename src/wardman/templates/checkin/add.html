@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="active">入住管理</li>
+</ol>
+<div class="col-md-12">
+    <div class="modal_layer" id="modal_layer">
+        <div class="panel panel-danger">
+            <div class="panel-heading" style="font-weight: bold">添加入住信息
+                <a href='javascript:history.back(-1)' type="button" class="close"><span
+                        aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="panel-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="">病历号</label>
+                        <input type="text" name="treatment" class="form-control" autofocus>
+                        <label for="">病床号</label>
+                        <input type="text" name="bed"class="form-control" autofocus>
+                        <label for="">收费标准</label>
+                        <input type="text" name="fee" class="form-control" autofocus>
+                        <label for="">是否占用</label></br>
+                        <input type="radio" name="online" value="1" checked>是</br>
+                        <input type="radio" name="online" value="0">否</br>
+                        <span id="error" style="color: red">{{ error }}</span>
+                    </div>
+                    <input type="submit" class="btn" value="添加" style="background: #f2dede;">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}{% endblock %}

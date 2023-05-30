@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="active">医生管理</li>
+</ol>
+<div class="col-md-12">
+    <a href='add/' class="btn btn-default" id="add_modal" style="margin-bottom:5px;background: #f2dede;">添加</a>
+    <div class="shadow hide" id="shadow"></div>
+    <!--信息展示-->
+    <table class="table table-bordered text-center table-hover" style="background: white;margin-bottom: 0">
+        <tr>
+            <th class="text-center">工号ID</th>
+            <th class="text-center">姓名</th>
+            <th class="text-center">性别</th>
+            <th class="text-center">科室</th>
+            <th class="text-center">电话号码</th>
+            <th class="text-center">身份证号</th>
+            <th class="text-center">是否在职</th>
+            <th class="text-center">操作</th>
+        </tr>
+        {% for row in doctor_list %}
+        <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.gender }}</td>
+            <td>{{ row.dname }}</td>
+            <td>{{ row.tel }}</td>
+            <td>{{ row.ssn }}</td>
+            <td>{{ row.online }}</td>
+            <td>
+                <a href='edit?id={{ row.id }}' class="btn btn-default"
+                    style="margin-bottom:5px;background: #f2dede;">编辑</a>
+                <a href='javascript:void(0)' class="btn btn-default" style="margin-bottom:5px;background: #f2dede;"
+                    onclick="del(this)">删除</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <!--信息展示-->
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    // 删除
+    function del(ths) {
+        var row = $(ths).parent().prevAll();
+        var id = $(row[6]).text();
+        $.ajax({
+            url: 'delete/',
+            type: 'POST',
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': getCookie('csrftoken')
+            },
+            success: function (data) {
+                console.log(data);
+                if (data == 'ok') {
+                    window.alert('删除成功');
+                    location.reload();
+                } else {
+                    window.alert('删除失败');
+                    location.reload();
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

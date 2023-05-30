@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="active">科室管理</li>
+</ol>
+<div class="col-md-12">
+    <div class="modal_layer" id="modal_layer">
+        <div class="panel panel-danger">
+            <div class="panel-heading" style="font-weight: bold">添加科室信息
+                <a href='javascript:history.back(-1)' type="button" class="close"><span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="panel-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="">名称</label>
+                        <input type="text" name="name" class="form-control" id="department_name" placeholder=""
+                            autofocus>
+                        <label for="">电话</label>
+                        <input type="text" name="tel" class="form-control" id="department_tel" placeholder="" autofocus>
+                        <label for="">地址</label>
+                        <input type="text" name="location" class="form-control" id="department_location" placeholder=""
+                            autofocus>
+                        <span id="error" style="color: red">{{ error }}</span>
+                    </div>
+                    <input type="submit" class="btn" value="添加" id="add_department" style="background: #f2dede;">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block css %}
+{% endblock %}
+{% block content %}
+
+<ol class="breadcrumb">
+    <li class="active">医生管理</li>
+</ol>
+<div class="col-md-12">
+    <div class="modal_layer" id="modal_layer">
+        <!--编辑信息模态框-->
+        <div class="modal_layer" id="modal_edit">
+            <div class="panel panel-danger">
+                <div class="panel-heading" style="font-weight: bold">编辑医生信息
+                    <a href='javascript:history.back(-1)' type="button" class="close"><span
+                            aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="">ID</label>
+                            <input type="text" name="id" value="{{ id }}" disabled="true" class="form-control"
+                                autofocus>
+                            <label for="">姓名</label>
+                            <input type="text" name="name" value="{{ name }}" class="form-control" autofocus>
+                            <label for="">性别</label> </br>
+                            <input type="radio" name="gender" value="1">男 </br>
+                            <input type="radio" name="gender" value="0">女 </br>
+                            <label for="">电话</label>
+                            <input type="text" name="tel" value="{{ tel }}" class="form-control" autofocus>
+                            <label for="">身份证号</label>
+                            <input type="text" name="ssn" value="{{ ssn }}" class="form-control" autofocus>
+                            <label for="">科室</label>
+                            <select name="dep" class="form-control" autofocus>
+                                {% for d in deps %}
+                                <option value="{{ d.id }}">{{ d.name }}</option>
+                                {% endfor %}
+                            <span id="edit_error" style="color: red"></span>
+                        </div>
+                        <input type="submit" class="btn" value="修改" id="edit_department" style="background: #f2dede;">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--编辑信息模态框-->
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}

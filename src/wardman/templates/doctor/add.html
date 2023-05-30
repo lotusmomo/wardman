@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="active">医生管理</li>
+</ol>
+<div class="col-md-12">
+    <div class="modal_layer" id="modal_layer">
+        <div class="panel panel-danger">
+            <div class="panel-heading" style="font-weight: bold">添加医生信息
+                <a href='javascript:history.back(-1)' type="button" class="close"><span
+                        aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="panel-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="">姓名</label>
+                        <input type="text" name="name" class="form-control" autofocus>
+                        <label for="">性别</label> </br>
+                        <input type="radio" name="gender" value="1">男 </br>
+                        <input type="radio" name="gender" value="0">女 </br>
+                        <label for="">电话</label>
+                        <input type="text" name="tel" class="form-control" autofocus>
+                        <label for="">身份证号</label>
+                        <input type="text" name="ssn" class="form-control" autofocus>
+                        <label for="">科室</label>
+                        <select name="dep" class="form-control" autofocus>
+                            {% for dep in deps %}
+                            <option value="{{ dep.id }}">{{ dep.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="">密码</label>
+                        <input type="password" name="password" class="form-control" autofocus>
+                        <span id="error" style="color: red">{{ error }}</span>
+                    </div>
+                    <input type="submit" class="btn" value="添加" id="add_department" style="background: #f2dede;">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}{% endblock %}

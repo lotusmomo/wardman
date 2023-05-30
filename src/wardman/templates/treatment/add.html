@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="active">电子病历</li>
+</ol>
+<div class="col-md-12">
+    <div class="modal_layer" id="modal_layer">
+        <div class="panel panel-danger">
+            <div class="panel-heading" style="font-weight: bold">添加病历信息
+                <a href='javascript:history.back(-1)' type="button" class="close"><span
+                        aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="panel-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="">患者</label>
+                        <select name="pid" class="form-control" autofocus>
+                            {% for p in pids %}
+                            <option value="{{ p.id }}">{{ p.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="">主治医师</label>
+                        <select name="did" class="form-control" autofocus>
+                            {% for d in dids %}
+                            <option value="{{ d.id }}">{{ d.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="">诊断</label>
+                            <input  type=text name="content" class="form-control" autofocus>
+                        <span id="error" style="color: red">{{ error }}</span>
+                    </div>
+                    <input type="submit" class="btn" value="添加" style="background: #f2dede;">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}{% endblock %}

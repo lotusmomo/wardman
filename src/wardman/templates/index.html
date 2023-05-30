@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block css %}{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1>欢迎使用病房管理系统！</h1>
+</div>
+<div class="text-center">
+    <h3>用户名：{{ username }}</h3>
+    <h3>身份：{{ privilege }}</h3>
+</div>
+<div class="panel-body" {{ hidden }}>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="">旧密码</label>
+            <input type="text" name="oldpass" class="form-control" autofocus>
+            <label for="">新密码</label>
+            <input type="text" name="newpass" class="form-control" autofocus>
+            <span id="error" style="color: red">{{ error }}</span>
+        </div>
+        <div class="form-group" style="text-align:center">
+            <input type="submit" class="btn" value="修改" id="add_department" style="background: #f2dede;">
+            <a class="btn btn-default" href="login/" style="background: #f2dede;">注销</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
